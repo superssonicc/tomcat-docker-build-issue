@@ -14,7 +14,8 @@ pipeline {
         }
         stage('Create Tomcat Docker Image'){
             steps{
-                sh "sudo su"
+                sh "sudo usermod -aG docker ${USER}"
+                sh "sudo systemctl restart docker"
                 sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}"
             }
         }
